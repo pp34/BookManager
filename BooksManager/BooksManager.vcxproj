@@ -142,6 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="book.h" />
+    <ClInclude Include="date.h" />
+    <ClInclude Include="id.h" />
+    <ClInclude Include="loan.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="person.h" />
+    <ClInclude Include="title.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="title.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="aa8b8afd-5d85-4f89-a1a1-968c5140325a" name="customer_UML" linkedPackageId="29c6ae4e-aad5-438e-a1fd-2ae6f8aaee13" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <ownedCommentsInternal>
+    <comment Id="64b30bfb-4bc0-499b-acc6-dea72ec1ac78">
+      <elementDefinition Id="49c7b501-afb0-4622-a107-56bbfe73137c" />
+      <body>已经是会员了，拥有部分特权</body>
+      <annotatedElements>
+        <actorMoniker Id="4372b161-1dfa-44bf-b5d9-809c749ff899" LastKnownName="Customer" />
+      </annotatedElements>
+    </comment>
+    <comment Id="830ede4a-28d2-46b3-bd84-892dc7f7b5b5">
+      <elementDefinition Id="2f14c68a-88cf-42cc-9d00-1f818fccac97" />
+      <body>包括会员个人信息和借阅记录</body>
+      <annotatedElements>
+        <useCaseMoniker Id="9f764b6d-0fe3-4f49-939b-b3a346122b5a" LastKnownName="查看会员信息" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="8dd5f8a7-5592-41fa-9225-6ef6608a3a0f">
+      <profileInstance Id="38ccda0e-f4f4-46e8-b9e2-eb7dd19a6c0e" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="cb2677c7-3e2b-4b5d-9898-fdcf8728e299">
+      <profileInstance Id="af775160-421e-4c1a-bfd6-687592565722" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="4372b161-1dfa-44bf-b5d9-809c749ff899" name="Customer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c3aeec1e-3b6b-41cf-980b-b20d9fcd041e" />
+        <targetEnds>
+          <association Id="f21ca482-90db-410a-8b13-8489d4e01caf" isDerived="false" sourceEndRoleName="Customer" targetEndRoleName="登陆" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="8d057fc2-d556-4d63-b671-b31055630d57" LastKnownName="登陆" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="19987455-b299-4e71-81f5-7c80bfcd1758" name="Customer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a9a35e3a-9115-4456-b6d1-054fe6b79720" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e59cbb2c-d348-468e-87e9-82bb10e71ce3" name="登陆" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0b16a7a0-9804-47fe-8895-e0ff82343b07" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0d43c353-c5de-4d9b-b0bd-de8ee7a0ff13" />
+          </association>
+          <association Id="d78bfa56-5397-45a6-890c-c1c9e94d5b05" isDerived="false" sourceEndRoleName="Customer" targetEndRoleName="查阅书籍信息" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="2a14c90d-c0b5-49a5-922c-ece46ad75028" LastKnownName="查阅书籍信息" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b6c6a842-506f-48a2-a081-0d489f65ccb4" name="Customer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="d7d00af7-2f1a-4a57-98c6-7922f93ca560" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="53d8693d-0cdd-4938-a0c8-9a9b1ddf87ca" name="查阅书籍信息" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d8e3986c-3c3e-494d-bb8d-469abf16b898" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f565d06a-fc0c-4659-90dc-9ae01ed1dff6" />
+          </association>
+          <association Id="6ace30ca-bf9b-4aa4-8f10-d1f4dc4bd9c2" isDerived="false" sourceEndRoleName="Customer" targetEndRoleName="借书" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="b08f8405-d58b-470a-be57-8c9dc1f14cab" LastKnownName="借书" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d27961f2-f379-48ca-b7a7-5b0dbfbb9d83" name="Customer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="efa83b9c-7c12-41d2-bcdd-5545ec3a407e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2dfaf383-2109-4e8c-9bcd-09fa556979f6" name="借书" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1762de32-7210-44e0-b2ab-0427449258f0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="86b57dea-2776-4975-9d04-15fbcb8c93f4" />
+          </association>
+          <association Id="b0757add-59a1-4f43-afbb-63ea38566bf8" isDerived="false" sourceEndRoleName="Customer" targetEndRoleName="还书" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="5eae761d-a4b1-42f1-9a78-1b2459baf4d0" LastKnownName="还书" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4e641ead-453a-4952-9b99-69074e3ba371" name="Customer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f0ae21db-7f44-44f9-b332-dd760ce3f87c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="448c67df-d318-4a35-adda-c2de2b4f83ba" name="还书" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d5a085aa-6616-4d40-af9c-538d27b35a61" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="47362d6f-34fa-44c7-81b1-b9eae5eaebb2" />
+          </association>
+          <association Id="26752834-9d24-47d8-8219-dff7d37e7782" isDerived="false" sourceEndRoleName="Customer" targetEndRoleName="购买" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9e9f74f1-90a5-4c3e-812c-ae5dd3580368" LastKnownName="购买" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8801f4be-d69d-4b6c-ad53-b177f090286a" name="Customer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="14b569af-5989-4083-ac2a-1b1d40022f0b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6b100583-87b4-4f12-9733-48b59e1e112c" name="购买" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8ac1d6a4-ea31-4933-9062-43127bdd8436" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3d71a769-2571-4e51-910e-d18d24f72792" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="8d057fc2-d556-4d63-b671-b31055630d57" name="登陆" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="96625bcb-0d01-465e-b0cf-87ecc8d5977f" />
+        <additions>
+          <include Id="037707c0-0040-4b3c-a9a5-b664287e80fb">
+            <useCaseMoniker Id="9f764b6d-0fe3-4f49-939b-b3a346122b5a" LastKnownName="查看会员信息" />
+            <elementDefinition Id="e52273db-365f-40b2-ad49-68f9dcde3ed6" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="2a14c90d-c0b5-49a5-922c-ece46ad75028" name="查阅书籍信息" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c6778d8c-3c65-4c56-9536-079253aabe0a" />
+        <additions>
+          <include Id="9442e8df-c87a-4dea-8ad5-5f6b33d6fbc0">
+            <useCaseMoniker Id="33dbcd3d-7f6e-4ff9-8415-5622f42cf398" LastKnownName="分类查找" />
+            <elementDefinition Id="a62b2602-1eef-43c5-84c2-270ed323740e" />
+          </include>
+          <include Id="d0399851-6156-4b74-a19b-aa717c8a8fe5">
+            <useCaseMoniker Id="6f0ced85-824b-4bf5-8a60-ae0687e9dab2" LastKnownName="ISBN查找" />
+            <elementDefinition Id="a0e08724-9d4f-4eda-9419-854cc1985c2e" />
+          </include>
+          <include Id="bb2d18b6-dd17-4cd8-b6cd-0145e67fbc00">
+            <useCaseMoniker Id="4dd15c24-529d-41e7-ab36-8daeaf673de6" LastKnownName="书名查找" />
+            <elementDefinition Id="5cbad7f1-f48f-4a67-8a43-685a6e0205e8" />
+          </include>
+          <include Id="5c0f57a4-4734-4cf1-8079-44a50d21926b">
+            <useCaseMoniker Id="6bf7cc4f-cd5c-4c9b-af81-7ddb8a131160" LastKnownName="详细信息" />
+            <elementDefinition Id="8314afd0-c219-4d56-a2b9-cbb3c4a59ade" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="6bf7cc4f-cd5c-4c9b-af81-7ddb8a131160" name="详细信息" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="64dd65a1-e133-4d76-a5aa-c043c86a1783" />
+        <extendedCases>
+          <extend Id="ee672ee0-8dfa-4a09-b0d1-6e0919377b84">
+            <useCaseMoniker Id="ee88cd7e-162a-4a19-b66d-2895f899e208" LastKnownName="打印书籍信息" />
+            <elementDefinition Id="0b4bb674-1c9a-457c-9743-9759e76dd499" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="33dbcd3d-7f6e-4ff9-8415-5622f42cf398" name="分类查找" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="87600508-30f3-4560-853a-01a51ee970be" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="6f0ced85-824b-4bf5-8a60-ae0687e9dab2" name="ISBN查找" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="dfd5d6ef-2213-4f2f-85c5-47d6f70cdab9" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="4dd15c24-529d-41e7-ab36-8daeaf673de6" name="书名查找" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ca556897-b3c8-4549-9a92-32b6e15907d8" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="ee88cd7e-162a-4a19-b66d-2895f899e208" name="打印书籍信息" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="6688e6b1-ed3e-4226-9bea-f4dbb0b5a414" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="b08f8405-d58b-470a-be57-8c9dc1f14cab" name="借书" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c4825ca9-007b-4824-a92f-8947b2d6e57f" />
+        <additions>
+          <include Id="0b8c2148-b407-4948-8d5f-43375f58e85c">
+            <useCaseMoniker Id="e7c830bd-8b41-48e0-a5d0-c18e066925b3" LastKnownName="时间处理" />
+            <elementDefinition Id="9d0e9e9e-6a21-4cb3-8b9a-873a871038b7" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="5eae761d-a4b1-42f1-9a78-1b2459baf4d0" name="还书" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c9705111-4e06-457f-960d-9b7386720f70" />
+        <additions>
+          <include Id="c22bc371-416f-41cb-a891-81c77f7c99d6">
+            <useCaseMoniker Id="2e3c0e2a-f136-4e18-b82d-e41c47ac6364" LastKnownName="费用结算" />
+            <elementDefinition Id="5bca96cc-58c8-4a1b-9e28-4d4180936ffd" />
+          </include>
+          <include Id="e29a7e3c-204a-409d-ae6c-5b577ae69dbf">
+            <useCaseMoniker Id="e7c830bd-8b41-48e0-a5d0-c18e066925b3" LastKnownName="时间处理" />
+            <elementDefinition Id="ec7f626d-6a16-4e8d-9bb5-db8921724dfc" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="2e3c0e2a-f136-4e18-b82d-e41c47ac6364" name="费用结算" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="655b3009-3798-4249-8201-e12b017b5c91" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="e7c830bd-8b41-48e0-a5d0-c18e066925b3" name="时间处理" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="00233261-3b54-4c11-90bf-6f2f51828cd1" />
+        <extendedCases>
+          <extend Id="f3298a2d-c5d1-4427-8f19-cc2dd0286a09">
+            <useCaseMoniker Id="bd7812f6-39cd-4205-bcf3-4aee70844561" LastKnownName="逾期提醒" />
+            <elementDefinition Id="cdc6ee8d-2c0a-4679-8814-6d4376ff10bb" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="bd7812f6-39cd-4205-bcf3-4aee70844561" name="逾期提醒" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e573e379-2ce0-4349-8727-6e6ce522fe23" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9e9f74f1-90a5-4c3e-812c-ae5dd3580368" name="购买" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="bb113bd1-8fde-48d7-9235-6e73d7f0450a" />
+        <additions>
+          <include Id="f53f5a15-c3d1-4757-9636-f2c90dc9a866">
+            <useCaseMoniker Id="2e3c0e2a-f136-4e18-b82d-e41c47ac6364" LastKnownName="费用结算" />
+            <elementDefinition Id="46f7bb35-ea8b-403b-90da-5c202ba41c7d" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9f764b6d-0fe3-4f49-939b-b3a346122b5a" name="查看会员信息" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9db6629b-53cd-49f8-a94c-742a2750cb95" />
+        <extendedCases>
+          <extend Id="c31d571a-b5a7-4729-bea1-ba155d08a3d1">
+            <useCaseMoniker Id="609c2177-4109-45a9-bc4a-bfad4b25565d" LastKnownName="打印个人信息" />
+            <elementDefinition Id="a5f87e69-60ab-49bd-a9df-7b9b7a292117" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="609c2177-4109-45a9-bc4a-bfad4b25565d" name="打印个人信息" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="12c07759-73f6-4f2c-8039-0739a99092bb" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="29c6ae4e-aad5-438e-a1fd-2ae6f8aaee13" name="person_UML">
+    <elementDefinition Id="afc61e7b-d555-4a30-9ae5-b85b0ae2390d" />
+  </package>
+</useCaseModelRoot>
