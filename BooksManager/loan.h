@@ -10,13 +10,12 @@
 
 class Loan{
 public:
-    Loan() = default;
-    Loan(Book book, Customer customer, Date date){
-        this->book = book;
-        this->customer = customer;
-        this->date = date;
-    };
-    ~Loan(){};
+   // Loan() = default;
+    Loan(const Book &book, const Customer &customer, const Date &date):
+    book(book),customer(customer),date(date){}  //  编译器自己执行的拷贝
+                                                //  相当于对对象的每个成员执行拷贝
+                                                //  调用编译器隐式生成的默认拷贝构造函数
+    ~Loan(){}
 
     void display(){ 
         std::cout << "Book's Information:\n"; 
@@ -31,7 +30,6 @@ private:
     Customer customer;
     Date date;
 };
-
 
 
 #endif

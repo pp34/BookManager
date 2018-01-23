@@ -7,22 +7,21 @@
 
 class Person{
 public:
-    Person() = default;
-    Person( std::string name ){ this->name = name; }
+   // Person() = default;
+    Person(const std::string &name ):name(name){}
     ~Person(){}
-    void setName( std::string name ){ this->name = name; }
-    std::string getName(){ return this->name; }
+    void setName( const std::string &name ){ this->name = name; }
+    inline std::string getName() const { return this->name; }
 private:
     std::string name="Â·ÈË¼×";
 };
 
 class Customer:public Person{
 public:
-    Customer() = default;
-    Customer( std::string id, std::string pwd , std::string name){
-        this->account.setID( id, pwd );
-        this->setName( name );
-    }
+   // Customer() = default;
+    Customer( const ID &account, const std::string &name ) : Person( name ),account( account ){}
+    Customer( const std::string &id, const std::string &pwd , const std::string &name):
+    Person( name ), account( id , pwd ){}
     ~Customer(){ 
         //std::cout << "A Customer had login out.\n"; 
     }

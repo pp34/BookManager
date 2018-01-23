@@ -13,16 +13,13 @@ typedef enum{
 
 class Date{
 public:
-    Date()=default;
-    Date( unsigned int year, Month month ){
-        this->year = year;
-        this->month = month;
-    }
+    //Date()=default;
+    Date( const unsigned int year, const Month month ) :year( year ), month( month ){}
     ~Date(){};
     void setYear( unsigned int year ){ this->year = year; }
     void setMonth( Month month ){ this->month = month; }
-    unsigned int& getYear(){ return this->year; }
-    Month& getMonth(){ return this->month; }
+    inline unsigned int getYear() const { return this->year; }
+    inline Month getMonth() const { return this->month; }
     void display(){
         std::cout << std::left << std::setw( 20 ) <<"Date: " << std::right<< std::setw(20-4) <<this->getYear() \
             << " - " << this->getMonth() << std::endl;

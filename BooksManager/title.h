@@ -2,16 +2,16 @@
 #define  TITLE_H
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 class Title{
 public:
     Title() = default;
-    Title( std::string bookname, std::string author,std::string isbn ){
-        this->setBookName( bookname );
-        this->setAuthor( author );
-        this->setISBN( isbn );
-    };
+    Title( const Title &title ) :
+        bookName( title.bookName ), author( title.author ), ISBN( title.ISBN ){};
+    Title( const std::string &bookname, const std::string &author, const std::string &isbn ):
+    bookName( bookname ),author(author),ISBN(isbn){};
     ~Title(){};
 
  /*   Title* findTitle( std::string isbn );
@@ -30,13 +30,13 @@ public:
         this->ISBN = isbn;
     }
 
-    inline std::string getAuthor(){
+    inline std::string getAuthor() const {
         return this->author;
     }
-    inline std::string getBookName(){
+    inline std::string getBookName() const {
         return this->bookName;
     }
-    inline std::string getISBN(){
+    inline std::string getISBN() const {
         return this->ISBN;
     }
 
