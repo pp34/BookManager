@@ -8,17 +8,19 @@
 class Title{
 public:
     Title() = default;
-    Title( const Title &title ) :
-        bookName( title.bookName ), author( title.author ), ISBN( title.ISBN ){};
-    Title( const std::string &bookname, const std::string &author, const std::string &isbn ):
-    bookName( bookname ),author(author),ISBN(isbn){};
-    ~Title(){};
+    explicit Title( const Title& );
+    explicit Title( const std::string& bookname, const std::string& author, const std::string& isbn ) ;
+    //Title( const Title&& title ) noexcept;
+    ~Title() = default;
 
  /*   Title* findTitle( std::string isbn );
     Title* findTitle( std::string bookname );
 */
     //Title* addBook(Book::title);
     //Title* removeBook( Book::title );
+
+    Title& Title::operator=( Title& obj );
+    Title& Title::operator=( Title&& obj );
 
     void setAuthor( std::string author ){
         this->author = author;
@@ -47,12 +49,39 @@ public:
     }
 
 private:
-    std::string bookName;
-    std::string ISBN;
-    std::string author;
+    std::string bookName = { "new book" };
+    std::string ISBN = { "null" };
+    std::string  author = { "null" };
 };
 
+Title::Title( const Title& title ) :
+    bookName( title.bookName ), author( title.author ), ISBN( title.ISBN ){};
 
+Title::Title( const std::string& bookname, const std::string& author, const std::string& isbn ) :
+    bookName( bookname ), author( author ), ISBN( isbn ){};
+
+//Title::Title( const Title&& title ) :
+//    bookName( std::move( title.bookName ) ), author( std::move( title.author ) ), ISBN( std::move( title.ISBN ) ){};
+
+Title& Title::operator=( Title& obj ){
+    if ( this != &obj )
+    {
+        bookName =  obj.bookName ;
+        author = obj.author;
+        ISBN =  obj.ISBN ;
+    }
+    return *this;
+}
+
+Title& Title::operator=( Title&& obj ){
+    if ( this != &obj )
+    {
+        bookName = std::move( obj.bookName );
+        author = std::move( obj.author );
+        ISBN = std::move( obj.ISBN );
+    }
+    return *this;
+}
 
 #endif
 

@@ -72,20 +72,6 @@
       </propertyInstances>
     </stereotypeInstance>
   </appliedStereotypesInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="72f28ec6-0162-459d-8883-87c5f5a3230c">
-      <profileInstance Id="a3060282-2cfa-4604-87ea-05225adf16eb" name="CSharpProfile">
-        <elementDefinition Id="c578c8f2-611a-466a-a544-63bf1ebb126d" />
-      </profileInstance>
-      <elementDefinition Id="1c0a25de-74ab-48e5-ad37-804a98c7e804" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="2a040ec3-502c-453c-8912-501087541071">
-      <profileInstance Id="d43cf09d-fe3b-4bd2-baec-c8120f3e786f" name="TextTemplateBindings">
-        <elementDefinition Id="52d5ee38-fa03-4c1a-ad9d-c679f8939be5" />
-      </profileInstance>
-      <elementDefinition Id="aa380ff9-cbc0-4570-aad4-0bf00fc82253" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
       <class Id="6e47cf4d-9bec-4b51-a379-f8d0f18668eb" name="Book" isAbstract="false" isLeaf="false" isActiveClass="false">
@@ -1135,28 +1121,28 @@
           </association>
         </targetEnds>
         <ownedAttributesInternal>
-          <property Id="e042dc64-a368-405e-8621-a32cffbf0657" name="title" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="b3fed72c-7101-4ff5-b324-ef5020b0d89b" />
-            <type_NamedElement>
-              <referencedTypeMoniker Id="e0c1a726-3f55-45b6-a0fc-aa1ad86d61cd" LastKnownName="Title" />
-            </type_NamedElement>
-          </property>
           <property Id="7a1cfa39-4031-4d12-83d5-f571cda58d3e" name="date" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="bb59919c-0f93-46a7-a37a-1a37bed429af" />
             <type_NamedElement>
               <referencedTypeMoniker Id="ea882010-edfd-460d-9d5f-16e5d208fa59" LastKnownName="Date" />
             </type_NamedElement>
           </property>
-          <property Id="ec2e2a6c-d75f-4153-86b2-a1605de6fbb0" name="userID" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="f7851aa2-b4e5-4e96-9c77-699c6b0dcee5" />
-            <type_NamedElement>
-              <referencedTypeMoniker Id="da25e020-67ac-4473-ae59-5182b2fecdf1" LastKnownName="string" />
-            </type_NamedElement>
-          </property>
           <property Id="df11003a-9d4f-4e98-b791-52ec8c01f653" name="number" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="6dda3233-adde-408b-9732-7ab23a98cc96" />
             <type_NamedElement>
               <referencedTypeMoniker Id="f7f9d9c3-f4e0-4453-aba4-fcee054ce008" LastKnownName="unsigned int" />
+            </type_NamedElement>
+          </property>
+          <property Id="15131d29-48aa-409f-b228-334f85780254" name="customer" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e3002df1-2faa-466f-949f-1dac26b4803f" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="96ca4cce-bc10-4ae7-9528-f506d41742d1" LastKnownName="Customer" />
+            </type_NamedElement>
+          </property>
+          <property Id="68d1ceb1-44bc-403b-b96c-3d52cd741bf6" name="book" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e410e2ed-1bde-4f9c-be5e-ac8148c6ccae" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="5043b04b-e9dc-48cc-bb44-f6ccd73ca857" LastKnownName="Book" />
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>
@@ -1513,11 +1499,6 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <packageHasNamedElement>
-      <referencedType Id="e0c1a726-3f55-45b6-a0fc-aa1ad86d61cd" name="Title" isAbstract="false" isLeaf="false" cachedFullName="book_class::Title">
-        <elementDefinition Id="f3dc2e9a-5ebc-421c-ab93-d24b697d75e7" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="ea882010-edfd-460d-9d5f-16e5d208fa59" name="Date" isAbstract="false" isLeaf="false" cachedFullName="book_class::Date">
         <elementDefinition Id="13a3dd1b-d98a-4c2c-a00d-c6752d042013" />
       </referencedType>
@@ -1537,6 +1518,16 @@
         <elementDefinition Id="bae25b87-85c9-4374-b88a-cf8fec08e3df" />
       </referencedType>
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="96ca4cce-bc10-4ae7-9528-f506d41742d1" name="Customer" isAbstract="false" isLeaf="false" cachedFullName="Customer">
+        <elementDefinition Id="b1d16563-acdf-4081-a903-d2ca9a2193d9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="5043b04b-e9dc-48cc-bb44-f6ccd73ca857" name="Book" isAbstract="false" isLeaf="false" cachedFullName="book_class::Book">
+        <elementDefinition Id="98efcdf4-8488-40a6-ad80-fe708e41c4d0" />
+      </referencedType>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="57ac0850-6dc0-440a-8a30-fa44adf2309a" name="book_class">
     <elementDefinition Id="e1f4a406-e447-40d1-87bd-4f121ca3a8a0" />
@@ -1552,6 +1543,18 @@
           <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
         </profileInstance>
         <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="72f28ec6-0162-459d-8883-87c5f5a3230c">
+        <profileInstance Id="a3060282-2cfa-4604-87ea-05225adf16eb" name="CSharpProfile">
+          <elementDefinition Id="c578c8f2-611a-466a-a544-63bf1ebb126d" />
+        </profileInstance>
+        <elementDefinition Id="1c0a25de-74ab-48e5-ad37-804a98c7e804" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="2a040ec3-502c-453c-8912-501087541071">
+        <profileInstance Id="d43cf09d-fe3b-4bd2-baec-c8120f3e786f" name="TextTemplateBindings">
+          <elementDefinition Id="52d5ee38-fa03-4c1a-ad9d-c679f8939be5" />
+        </profileInstance>
+        <elementDefinition Id="aa380ff9-cbc0-4570-aad4-0bf00fc82253" />
       </packageHasProfileInstances>
     </profileInstances>
   </package>

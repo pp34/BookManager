@@ -11,10 +11,27 @@
 
 class Sale{
 public:
-    //Book() = default;
-    Sale ( const Book &book, const Customer &customer, const Date &date, const double &price):
-       book( book ),customer( customer ),date( date ),price( price ){}
+    Sale() = delete;
+    Sale( const Sale& ) = delete;
+
+    Sale( const Sale&& sale ) :
+        book( std::move( sale.book ) ), customer( std::move( sale.customer ) ), date( std::move( sale.date ) ), price( sale.price ){}
+    Sale ( const Book&& book, const Customer&& customer, const Date&& date, const double &price):
+        book( std::move(book) ),customer( std::move( customer ) ),date( std::move( date ) ),price( price ){}
+
+
     ~Sale(){};
+
+
+    Sale& Sale::operator=( Sale&& obj ){
+        if ( this != &obj )
+        {
+            book = std::move( obj.book );
+            customer = std::move( obj.customer );
+            date =  obj.date ;
+            price = obj.price;
+        }return *this;
+    }
     void display(){
         Sale::book.display();
         Sale::customer.display();

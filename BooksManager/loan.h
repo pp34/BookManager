@@ -8,14 +8,22 @@
 #include "person.h"
 
 
-class Loan{
+class Loan:public Book, public Customer,public Date{
 public:
-   // Loan() = default;
-    Loan(const Book &book, const Customer &customer, const Date &date):
-    book(book),customer(customer),date(date){}  //  编译器自己执行的拷贝
-                                                //  相当于对对象的每个成员执行拷贝
-                                                //  调用编译器隐式生成的默认拷贝构造函数
+    Loan() = default;
+    
+    explicit Loan( const Loan& loan) :
+        book( loan.book ), customer( loan.customer ), date( loan.date ){}
+    explicit Loan( const Book& book, const Customer& customer, const Date& date ) :
+       book( book ),customer( customer ),date( date ){}  
+    //Loan( const Loan&& loan ):
+    //    book( std::move( loan.book ) ), customer( std::move( loan.customer ) ), date( std::move( loan.date ) ){}
+    //Loan(const Book&& book, const Customer&& customer, const Date&& date):
+    //    book( std::move(book) ),customer( std::move(customer) ),date( std::move(date) ){}  
     ~Loan(){}
+
+    Loan& Loan::operator=( Loan& obj );
+    Loan& Loan::operator=( Loan&& obj );
 
     void display(){ 
         std::cout << "Book's Information:\n"; 
@@ -31,5 +39,23 @@ private:
     Date date;
 };
 
+
+Loan& Loan::operator=( Loan& obj ){
+    if ( this != &obj )
+    {
+        book = ( obj.book );
+        customer = ( obj.customer );
+        date = ( obj.date );
+    }return *this;
+}
+
+Loan& Loan::operator=( Loan&& obj ){
+    if ( this != &obj )
+    {
+        book = std::move( obj.book );
+        customer = std::move( obj.customer );
+        date = ( obj.date );
+    }return *this;
+}
 
 #endif

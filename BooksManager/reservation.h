@@ -11,10 +11,26 @@
 
 class Reser{
 public:
+    Reser() = delete;
+    Reser( const Reser& ) = delete;
 
-    Reser( const Book &book, const Customer &customer, const Date &date, const unsigned int &num ) :
-        book( book ), customer( customer ), date( date ), number( num ){}
+
+
+    Reser( const Reser&& reser ) :
+        book( std::move( reser.book ) ), customer( std::move( reser.customer ) ), date( std::move( reser.date ) ), number( reser.number ){}
+    Reser( const Book&& book, const Customer&& customer, const Date&& date, const unsigned int &num ) :
+        book( std::move( book ) ), customer( std::move( customer ) ), date( std::move( date ) ), number( num ){}
     ~Reser(){};
+
+    Reser& Reser::operator=( Reser&& obj ){
+        if ( this != &obj )
+        {
+            book = std::move( obj.book );
+            customer = std::move( obj.customer );
+            date = ( obj.date );
+            number = obj.number;
+        }return *this;
+    }
     void display(){
         Reser::book.display();
         Reser::customer.display();

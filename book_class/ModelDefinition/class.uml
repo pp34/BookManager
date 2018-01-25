@@ -2182,25 +2182,6 @@
         </targetEnds>
         <ownedAttributesInternal>
           <property
-            Id="b3fed72c-7101-4ff5-b324-ef5020b0d89b"
-            name="title"
-            visibility="Private"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <classMoniker
-                Id="f3dc2e9a-5ebc-421c-ab93-d24b697d75e7"
-                LastKnownName="Title"
-                LastKnownLocation="class.uml" />
-            </type_NamedElement>
-          </property>
-          <property
             Id="bb59919c-0f93-46a7-a37a-1a37bed429af"
             name="date"
             visibility="Private"
@@ -2220,25 +2201,6 @@
             </type_NamedElement>
           </property>
           <property
-            Id="f7851aa2-b4e5-4e96-9c77-699c6b0dcee5"
-            name="userID"
-            visibility="Private"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="b3fd8637-8a31-4404-a626-07475e00cf7b"
-                LastKnownName="string"
-                LastKnownLocation="class.uml" />
-            </type_NamedElement>
-          </property>
-          <property
             Id="6dda3233-adde-408b-9732-7ab23a98cc96"
             name="number"
             visibility="Private"
@@ -2254,6 +2216,44 @@
               <undefinedTypeMoniker
                 Id="d720d8cd-5357-4e9e-9254-727fcb1cc165"
                 LastKnownName="unsigned int"
+                LastKnownLocation="class.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="e3002df1-2faa-466f-949f-1dac26b4803f"
+            name="customer"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="b1d16563-acdf-4081-a903-d2ca9a2193d9"
+                LastKnownName="Customer"
+                LastKnownLocation="class.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="e410e2ed-1bde-4f9c-be5e-ac8148c6ccae"
+            name="book"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <classMoniker
+                Id="98efcdf4-8488-40a6-ad80-fe708e41c4d0"
+                LastKnownName="Book"
                 LastKnownLocation="class.uml" />
             </type_NamedElement>
           </property>
