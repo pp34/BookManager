@@ -13,24 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\base">
+      <UniqueIdentifier>{478ac9cd-f563-4ea2-bea8-a84af7f3b94c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="person.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="book.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="date.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="loan.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="id.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
@@ -42,8 +33,20 @@
     <ClInclude Include="reservation.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="print.h">
+    <ClInclude Include="date.h">
+      <Filter>头文件\base</Filter>
+    </ClInclude>
+    <ClInclude Include="id.h">
+      <Filter>头文件\base</Filter>
+    </ClInclude>
+    <ClInclude Include="person.h">
+      <Filter>头文件\base</Filter>
+    </ClInclude>
+    <ClInclude Include="customer.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>头文件\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

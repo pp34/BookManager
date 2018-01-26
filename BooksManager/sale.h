@@ -11,18 +11,32 @@
 
 class Sale{
 public:
-    Sale() = delete;
-    Sale( const Sale& ) = delete;
-
+    Sale(){ std::cout << "Sale Default Ctor.\n"; };
+    Sale( const Book book, const Customer customer, const Date date, const double price ) :
+        book( book ), customer( customer ), date( date ), price( price ){
+        std::cout << "Sale Normal Ctor.\n";
+    }
+    Sale( const Sale& sale ) :
+        book( sale.book ), customer( sale.customer ), date( sale.date ), price( sale.price ){
+        std::cout << "Sale Copy Ctor.\n";
+    }
     Sale( const Sale&& sale ) :
-        book( std::move( sale.book ) ), customer( std::move( sale.customer ) ), date( std::move( sale.date ) ), price( sale.price ){}
-    Sale ( const Book&& book, const Customer&& customer, const Date&& date, const double &price):
-        book( std::move(book) ),customer( std::move( customer ) ),date( std::move( date ) ),price( price ){}
-
-
+        book( std::move( sale.book ) ), customer( std::move( sale.customer ) ), date( std::move( sale.date ) ), price( sale.price ){
+        std::cout << "Sale Move Ctor.\n";
+    }
     ~Sale(){};
 
-
+    Sale& Sale::operator=( Sale& obj ){
+        if ( this != &obj )
+        {
+            book = obj.book ;
+            customer = obj.customer;
+            date = obj.date;
+            price = obj.price;
+        }
+        std::cout << "Sale Copy Operator.\n";
+        return *this;
+    }
     Sale& Sale::operator=( Sale&& obj ){
         if ( this != &obj )
         {
@@ -30,7 +44,9 @@ public:
             customer = std::move( obj.customer );
             date =  obj.date ;
             price = obj.price;
-        }return *this;
+        }
+        std::cout << "Sale Move Operator.\n";
+        return *this;
     }
     void display(){
         Sale::book.display();

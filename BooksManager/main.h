@@ -6,5 +6,7 @@
 
 #include "loan.h"
 #include "date.h"
+#include "customer.h"
+
 
 #endif

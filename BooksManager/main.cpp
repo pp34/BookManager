@@ -7,14 +7,15 @@ int main(){
     {
         double price = 34.35;
         Title title{ "《百年孤独》","加西亚·马尔克斯","9787544253994" };
-        Book book(  title , price );
+        Book book{ title , price };
         Customer customer{ "pp","rd257", "a123456" };
         Date date{ 2018, Month::Febr };
         Loan lobj{ ( book ), ( customer ), ( date ) };
-        Loan tmp;
         tmp = lobj;
-        lobj.display();
+        //printDate( std::cout, tmp );
     }
-    tmp.display();
+    tmp.printDate( std::cout );
     return 0;
 }
+
+int &q( int i){ return i; }

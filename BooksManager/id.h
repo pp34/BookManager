@@ -6,18 +6,14 @@
 
 class ID{
 public:
-    ID() = default;
-    explicit ID( const ID& );
-    explicit ID( const std::string &userid, const std::string &userpwd );
-
-    //ID( const ID&& acount ) noexcept;
-    
+    ID() = default;//{ std::cout << "ID Default Ctor.\n"; };
+    ID( const std::string &userid, const std::string &userpwd );
+    ID( const ID& );
     ~ID() = default;
 
     ID& ID::operator=( ID& acount );
-    ID& ID::operator=( ID&& acount );
 
-    void setID( std::string userid , std::string userpwd ){
+    void setAccount( std::string userid , std::string userpwd ){
         this->userid = userid;
         this->userpwd = userpwd;
     }
@@ -32,10 +28,8 @@ private:
     std::string userpwd;
 };
 
-ID::ID( const ID& acount ) :userid( acount.userid ), userpwd( acount.userpwd ){}
-ID::ID( const std::string& userid, const std::string& userpwd ) : userid( userid ), userpwd( userpwd ){}
-
-//ID::ID( const ID&& acount ) :userid( std::move( acount.userid ) ), userpwd( std::move( acount.userpwd ) ){}
+ID::ID( const ID& acount ) :userid( acount.userid ), userpwd( acount.userpwd ){  }
+ID::ID( const std::string& userid, const std::string& userpwd ) : userid( userid ), userpwd( userpwd ){  }
 
 ID& ID::operator=( ID& acount ){
     if ( this != &acount )
@@ -43,16 +37,10 @@ ID& ID::operator=( ID& acount ){
         userid = acount.userid;
         userpwd = acount.userpwd;
     }
+    std::cout << "ID Copy Operator.\n";
     return *this;
 }
 
-ID& ID::operator=( ID&& acount ){
-    if ( this != &acount )
-    {
-        userid = acount.userid;
-        userpwd = acount.userpwd;
-    }
-    return *this;
-}
+
 
 #endif

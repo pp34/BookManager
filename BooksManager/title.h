@@ -7,10 +7,10 @@
 
 class Title{
 public:
-    Title() = default;
-    explicit Title( const Title& );
-    explicit Title( const std::string& bookname, const std::string& author, const std::string& isbn ) ;
-    //Title( const Title&& title ) noexcept;
+    Title() = default;// { std::cout << "Title Defualt CTOR.\n"; }
+    Title( const std::string& bookname, const std::string& author, const std::string& isbn );
+    Title( const Title& title );
+    Title( const Title&& title ) ;
     ~Title() = default;
 
  /*   Title* findTitle( std::string isbn );
@@ -54,14 +54,22 @@ private:
     std::string  author = { "null" };
 };
 
-Title::Title( const Title& title ) :
-    bookName( title.bookName ), author( title.author ), ISBN( title.ISBN ){};
-
 Title::Title( const std::string& bookname, const std::string& author, const std::string& isbn ) :
-    bookName( bookname ), author( author ), ISBN( isbn ){};
+    bookName( bookname ), author( author ), ISBN( isbn ){
+  //  std::cout << "Title Normal CTOR.\n";
+}
 
-//Title::Title( const Title&& title ) :
-//    bookName( std::move( title.bookName ) ), author( std::move( title.author ) ), ISBN( std::move( title.ISBN ) ){};
+
+Title::Title( const Title& title ) :
+    bookName( title.bookName ), author( title.author ), ISBN( title.ISBN ){
+   // std::cout << "Title Copy CTOR.\n";
+}
+
+Title::Title( const Title&& title ) :
+    bookName( std::move( title.bookName ) ), author( std::move( title.author ) ), ISBN( std::move( title.ISBN ) ){
+    //std::cout << "Title Move CTOR.\n";
+}
+
 
 Title& Title::operator=( Title& obj ){
     if ( this != &obj )
@@ -70,6 +78,7 @@ Title& Title::operator=( Title& obj ){
         author = obj.author;
         ISBN =  obj.ISBN ;
     }
+   // std::cout << "Title Copy Operator.\n";
     return *this;
 }
 
@@ -80,6 +89,7 @@ Title& Title::operator=( Title&& obj ){
         author = std::move( obj.author );
         ISBN = std::move( obj.ISBN );
     }
+   // std::cout << "Title Move Operator.\n";
     return *this;
 }
 

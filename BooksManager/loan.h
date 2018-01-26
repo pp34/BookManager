@@ -6,56 +6,50 @@
 #include "book.h"
 #include "date.h"
 #include "person.h"
-
+#include "customer.h"
 
 class Loan:public Book, public Customer,public Date{
 public:
     Loan() = default;
-    
-    explicit Loan( const Loan& loan) :
-        book( loan.book ), customer( loan.customer ), date( loan.date ){}
-    explicit Loan( const Book& book, const Customer& customer, const Date& date ) :
-       book( book ),customer( customer ),date( date ){}  
-    //Loan( const Loan&& loan ):
-    //    book( std::move( loan.book ) ), customer( std::move( loan.customer ) ), date( std::move( loan.date ) ){}
-    //Loan(const Book&& book, const Customer&& customer, const Date&& date):
-    //    book( std::move(book) ),customer( std::move(customer) ),date( std::move(date) ){}  
+    Loan( const Book& book, const Customer& customer, const Date& date );
+    Loan( const Loan& loan );
+    Loan( const Loan&& loan );
     ~Loan(){}
 
     Loan& Loan::operator=( Loan& obj );
-    Loan& Loan::operator=( Loan&& obj );
 
-    void display(){ 
-        std::cout << "Book's Information:\n"; 
-        book.display();
-        std::cout << "Customer's Information:\n";
-        customer.display();
-        std::cout << "Date's Information:\n";
-        date.display();
-    }
 private:
-    Book book;
-    Customer customer;
-    Date date;
+
 };
 
+Loan::Loan( const Book& book, const Customer& customer, const Date& date ) :
+    Book( book ), Customer( customer ), Date( date ){}
+Loan::Loan( const Loan& loan ) :
+    Book( loan.getBookName(),loan.getAuthor(),loan.getISBN(),loan.getPrice() ), 
+    Customer( loan.getName(),loan.getID(),loan.getPWD() ), 
+    Date( loan.getYear(),loan.getMonth() ){}
+
+Loan::Loan( const Loan&& loan ) :
+    Book( loan.getBookName(), loan.getAuthor(), loan.getISBN(), loan.getPrice() ),
+    Customer( loan.getName(), loan.getID(), loan.getPWD() ),
+    Date( loan.getYear(), loan.getMonth() ){}
 
 Loan& Loan::operator=( Loan& obj ){
     if ( this != &obj )
     {
-        book = ( obj.book );
-        customer = ( obj.customer );
-        date = ( obj.date );
-    }return *this;
-}
+        this->setBookName(obj.getBookName()) ;
+        this->setAuthor( obj.getAuthor() );
+        this->setISBN( obj.getISBN() );
+        this->setPrice( obj.getPrice() );
 
-Loan& Loan::operator=( Loan&& obj ){
-    if ( this != &obj )
-    {
-        book = std::move( obj.book );
-        customer = std::move( obj.customer );
-        date = ( obj.date );
-    }return *this;
+        this->setName( obj.getName() );
+        this->setAccount( obj.getID(), obj.getPWD() );
+
+        this->setDate( obj.getYear(), obj.getMonth() );
+       
+    }
+    std::cout << "Loan Copy Operator.\n";
+    return *this;
 }
 
 #endif
