@@ -10,7 +10,7 @@ public:
     Title() = default;// { std::cout << "Title Defualt CTOR.\n"; }
     Title( const std::string& bookname, const std::string& author, const std::string& isbn );
     Title( const Title& title );
-    Title( const Title&& title ) ;
+    Title( Title&& title ) noexcept;
     ~Title() = default;
 
  /*   Title* findTitle( std::string isbn );
@@ -65,7 +65,7 @@ Title::Title( const Title& title ) :
    // std::cout << "Title Copy CTOR.\n";
 }
 
-Title::Title( const Title&& title ) :
+Title::Title( Title&& title ) noexcept:
     bookName( std::move( title.bookName ) ), author( std::move( title.author ) ), ISBN( std::move( title.ISBN ) ){
     //std::cout << "Title Move CTOR.\n";
 }

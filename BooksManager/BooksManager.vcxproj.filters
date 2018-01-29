@@ -48,10 +48,21 @@
     <ClInclude Include="title.h">
       <Filter>头文件\base</Filter>
     </ClInclude>
+    <ClInclude Include="print.h">
+      <Filter>头文件\base</Filter>
+    </ClInclude>
+    <ClInclude Include="db.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="booklist.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
 </Project>

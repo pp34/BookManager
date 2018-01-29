@@ -1,4 +1,2 @@
-﻿  main.cpp
-f:\github\booksmanager\booksmanager\main.cpp(21): warning C4172: 返回局部变量或临时变量的地址: i
-  BooksManager.vcxproj -> F:\Github\BooksManager\x64\Debug\BooksManager.exe
+﻿  BooksManager.vcxproj -> F:\Github\BooksManager\x64\Debug\BooksManager.exe
   BooksManager.vcxproj -> F:\Github\BooksManager\x64\Debug\BooksManager.pdb (Full PDB)

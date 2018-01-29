@@ -145,16 +145,21 @@
     <ClInclude Include="book.h" />
     <ClInclude Include="customer.h" />
     <ClInclude Include="date.h" />
+    <ClInclude Include="db.h" />
     <ClInclude Include="id.h" />
     <ClInclude Include="loan.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="person.h" />
+    <ClInclude Include="print.h" />
     <ClInclude Include="reservation.h" />
     <ClInclude Include="sale.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="booklist.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
