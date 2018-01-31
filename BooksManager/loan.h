@@ -5,34 +5,33 @@
 #include <string>
 #include "book.h"
 #include "date.h"
-#include "person.h"
-#include "customer.h"
 
-class Loan:public Book, public Customer,public Date{
+
+class Loan :public Book, public Date{
 public:
-    Loan() = default;
-    Loan( const Book& book, const Customer& customer, const Date& date );
+    static int loannum;
+    Loan(){ ++loannum; }
+    Loan( const Book& book, const Date& date, const std::string& who );
     Loan( const Loan& loan );
-    Loan( const Loan&& loan );
-    ~Loan(){}
+    ~Loan(){ --loannum; }
 
     Loan& Loan::operator=( Loan& obj );
+    int getLoanNum(){ return loannum; }
+    std::string getWho() const { return who; }
+    void setWho( std::string w ){ who = w; }
 
 private:
-
+    std::string who;
 };
-
-Loan::Loan( const Book& book, const Customer& customer, const Date& date ) :
-    Book( book ), Customer( customer ), Date( date ){}
+int Loan::loannum = 0;
+Loan::Loan( const Book& book, const Date& date , const std::string& who ) :
+    Book( book ), Date( date ),who( who ) { ++loannum; }
 Loan::Loan( const Loan& loan ) :
-    Book( loan.getBookName(),loan.getAuthor(),loan.getISBN(),loan.getPrice() ), 
-    Customer( loan.getName(),loan.getID(),loan.getPWD() ), 
-    Date( loan.getYear(),loan.getMonth() ){}
+    Book( loan.getBookName(), loan.getAuthor(), loan.getISBN(), loan.getPrice(),loan.getNum() ),
+    Date( loan.getYear(), loan.getMonth() ),
+    who(loan.getWho())
+    { ++loannum;}
 
-Loan::Loan( const Loan&& loan ) :
-    Book( loan.getBookName(), loan.getAuthor(), loan.getISBN(), loan.getPrice() ),
-    Customer( loan.getName(), loan.getID(), loan.getPWD() ),
-    Date( loan.getYear(), loan.getMonth() ){}
 
 Loan& Loan::operator=( Loan& obj ){
     if ( this != &obj )
@@ -41,14 +40,9 @@ Loan& Loan::operator=( Loan& obj ){
         this->setAuthor( obj.getAuthor() );
         this->setISBN( obj.getISBN() );
         this->setPrice( obj.getPrice() );
-
-        this->setName( obj.getName() );
-        this->setAccount( obj.getID(), obj.getPWD() );
-
         this->setDate( obj.getYear(), obj.getMonth() );
-       
+        this->setWho( obj.getWho() );
     }
-    std::cout << "Loan Copy Operator.\n";
     return *this;
 }
 

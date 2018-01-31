@@ -6,32 +6,25 @@
 #include <iomanip>
 #include <sstream>
 
-typedef enum{
-    Jan = 1, Febr, Mar,
-    April, May, June,
-    July, Aug, Stemp,
-    Oct, Nov, Dec
-} Month;
-
 class Date{
 public:
     //friend std::ostream& printDate( std::ostream&, const Date& date );
 
     Date() = default;
-    Date( const unsigned int year, const Month month );
+    Date( const unsigned int year, const unsigned int month );
     Date( const Date& date );
     ~Date() = default;
 
     Date& Date::operator=( Date& obj );
 
-    void setDate( unsigned int year , Month month ){
+    void setDate( unsigned int year , unsigned int month ){
         this->year = year;
         this->month = month;
     }
     void setYear( unsigned int year ){ this->year = year; }
-    void setMonth( Month month ){ this->month = month; }
+    void setMonth( unsigned int month ){ this->month = month; }
     unsigned int getYear() const { return this->year; }
-    Month getMonth() const { return this->month; }
+    unsigned int getMonth() const { return this->month; }
     virtual void printDate( std::ostream& os ){
         os << std::left << std::setw( 20 ) << "Date: ";
         os << std::right << std::setw( 20 );
@@ -46,11 +39,11 @@ private:
         os << tmp << std::endl;
     }
     unsigned int year=2018;
-    Month month = Month::Jan;
+    unsigned int month = 1;
 };
 
 
-Date::Date( const unsigned int year, const Month month ) :year( year ), month( month ) {  }
+Date::Date( const unsigned int year, const unsigned int month ) :year( year ), month( month ) {  }
 Date::Date( const Date& date ) :year( date.year ), month( date.month ){  }
 
 Date& Date::operator=( Date& obj ){

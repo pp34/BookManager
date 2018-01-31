@@ -4,40 +4,52 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-
 #include "title.h"
 
 class Book :public Title{
 public:
-    Book() = default;   // { std::cout << "Book Default Ctor.\n"; }
-    Book( const std::string bookname, const std::string author, const std::string isbn, const double price );
-    Book( const Title& title, const double price );
-    Book( const Book& book );
-    Book( const Book&& book ) ;
+    static int total;
 
-    ~Book() = default;
+    friend class Clerk;
+
+    Book(){ ++total; }
+    Book( const std::string bookname, const std::string author, const std::string isbn, 
+          const double price, const int num );
+    Book( const Title& title, const double price, const int num );
+    Book( const Book& book );
+
+    ~Book(){ --total; }
 
     Book& Book::operator=( Book& obj );
-   // Book& Book::operator=( Book&& obj );
+    bool Book::operator==( const Book& obj );
 
     double getPrice() const { return price; }
     void setPrice( double p ){ price = p; }
+    int getTotal() const { return total; }
+    void setTotal( int t ){ total = t; }
+    int getNum() const { return num; }
+    void setNum( int t ){ num = t; }
 
-    void display(){
-        //title.display();
-        std::cout << std::left << std::setw( 20 ) << "price: " << std::right << std::setw( 20 ) << std::setprecision( 4 ) << getPrice() << std::endl;
-        //std::cout << price << std::endl;
-    }
 private:
+
     double price{ 0.0 };
-
+    int num{ 0 };
 };
-Book::Book( const std::string bookname, const std::string author, const std::string isbn, const double price ) :
-    Title( bookname, author, isbn ), price( price ){}
-Book::Book( const Title& title, const double price ) : Title( title ), price( price ){}
 
-Book::Book( const Book& book) : Title( book.getBookName(), book.getAuthor(), book.getISBN()), price( book.getPrice() ){}
-Book::Book( const Book&& book ) : Title( book.getBookName(), book.getAuthor(), book.getISBN() ), price( book.getPrice() ){}
+int Book::total = 0;
+
+Book::Book( const std::string bookname, const std::string author, const std::string isbn, 
+    const double price, const int num ) :
+    Title( bookname, author, isbn ), price( price ), num( num )
+    { ++total; }
+Book::Book( const Title& title, const double price, const int num ) :
+    Title( title ), price( price ), num( num )
+    { ++total; }
+
+Book::Book( const Book& book) : 
+    Title( book.getBookName(), book.getAuthor(), book.getISBN()), 
+    price( book.getPrice() ), num( book.getNum() )
+    { ++total; }
 
 Book& Book::operator=( Book& obj ){
     if ( this != &obj )
@@ -46,9 +58,22 @@ Book& Book::operator=( Book& obj ){
         this->setAuthor( obj.getAuthor() );
         this->setISBN( obj.getISBN() );
         this->setPrice(obj.getPrice());
+        this->setNum( obj.getNum() );
     }
-    //std::cout << "Book Copy Operator.\n";
     return *this;
+}
+
+inline bool Book::operator==( const Book & obj )
+{
+    if ( ( this->getBookName() == obj.getBookName() ) && \
+        ( this->getAuthor() == obj.getAuthor() ) && \
+        ( this->getISBN() == obj.getISBN() ) && \
+        ( this->getPrice() == obj.getPrice() )  \
+        )
+        return TRUE;
+    else
+        return FALSE;
+        
 }
 
 

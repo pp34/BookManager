@@ -3,8 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include "id.h"
-#include <iomanip>
 
 class Person
 {
@@ -12,7 +10,7 @@ public:
     Person() = default;// { std::cout << "Person Default Ctor.\n"; }
     Person( const Person& person);
     Person( const std::string& name );
-    Person( const Person&& person );
+    Person( Person&& person );
     
     ~Person(){}
 
@@ -31,7 +29,9 @@ private:
 
 Person::Person( const Person& person ):name( person.name ){ }
 Person::Person( const std::string& name ) :name( name ){  }
-Person::Person( const Person&& person ) :name( std::move( person.name ) ){  }
+Person::Person( Person&& person ) :name( std::move( person.name ) ){ 
+    person.name = nullptr;
+}
 
 
 
@@ -42,7 +42,6 @@ Person& Person::operator= ( Person& obj )
     {
         name = obj.name;
     }
-    //std::cout << "Person Copy Operator.\n";
     return *this;
 }
 
@@ -52,7 +51,6 @@ Person& Person::operator= ( Person&& obj )
     {
         name = obj.name;
     }
-    //std::cout << "Person Move Operator.\n";
     return *this;
 }
 

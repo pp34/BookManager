@@ -42,11 +42,11 @@ public:
         return this->ISBN;
     }
 
-    void display(){
-        std::cout << std::left << std::setw( 20 ) <<"Book's Name: " <<std::right << std::setw( 20 )<< this->getBookName() << std::endl \
-            << std::left << std::setw( 20 ) << "Book's Author: " << std::right << std::setw( 20 ) << this->getAuthor() << std::endl \
-            << std::left << std::setw( 20 ) << "Book's ISBN: " << std::right << std::setw( 20 ) << this->getISBN() << std::endl;
-    }
+    //void display(){
+    //    std::cout << std::left << std::setw( 20 ) <<"Book's Name: " <<std::right << std::setw( 20 )<< this->getBookName() << std::endl \
+    //        << std::left << std::setw( 20 ) << "Book's Author: " << std::right << std::setw( 20 ) << this->getAuthor() << std::endl \
+    //        << std::left << std::setw( 20 ) << "Book's ISBN: " << std::right << std::setw( 20 ) << this->getISBN() << std::endl;
+    //}
 
 private:
     std::string bookName = { "new book" };
