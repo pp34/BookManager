@@ -14,6 +14,7 @@ const std::string __BOOKLIST_FILENAME__ = { ".book" };
 const std::string __CUSTOMERDATA_FILENAME__ = { ".vip" };
 const std::string __CLERKDATA_FILENAME__ = { ".clerk" };
 const std::string __LOANRECORD_FILENAME__ = { ".loan" };
+const std::string __SALESLIST_FILENAME__ = { ".salesdata" };
 
 std::string wchartostring( const char *cstr );
 void saveAllData( BookList& bl, SalesData& sd );
@@ -47,6 +48,7 @@ DB book_db( __BOOKLIST_FILENAME__ );
 DB vip_db( __CUSTOMERDATA_FILENAME__ );
 DB clerk_db( __CLERKDATA_FILENAME__ );
 DB loan_db( __LOANRECORD_FILENAME__ );
+DB sales_db( __SALESLIST_FILENAME__ );
 
 DB::DB( DB&& db ) noexcept :filename( std::move( db.filename ) )  {
     db.filename = nullptr;
@@ -107,8 +109,8 @@ BookList DB::read_bookfile( BookList& bookdata){
         in.seekg( 0, std::ios::end );
         auto file_end = in.tellg();
         in.seekg( 0, std::ios::beg );
-        auto filestart = in.tellg();
-        while( file_end.seekpos() != (filestart.seekpos()+1) )
+        auto file_start = in.tellg();
+        while( file_end.seekpos() != file_start.seekpos() )
         {
             in >> name;
             in >> isbn;
@@ -121,8 +123,9 @@ BookList DB::read_bookfile( BookList& bookdata){
             in >> num;
     
             bookdata.book.push_back( Book( name, author, isbn, price, num ) );
-            
-            filestart = in.tellg();
+
+            in.get(); in.get();
+            file_start = in.tellg();
         }
         auto it_total = bookdata.book.begin();
         for (; it_total !=bookdata.book.end();++it_total){
@@ -357,7 +360,7 @@ SalesData DB::save_clerkfile( const SalesData& clerkdata ){
 SalesData DB::read_salesfile( SalesData& salesdata ){
 
     std::ifstream in;
-    
+
     std::string name;
     std::string id;
     std::string pwd;
@@ -366,11 +369,15 @@ SalesData DB::read_salesfile( SalesData& salesdata ){
     std::string author;
     double price;
     int num;
+    int dist{ -1 };
+    char root;
     char tmp;
     char ctmp[ 50 ];
     unsigned int year;
     unsigned int month;
-
+    salesdata.vip.resize( 100 );
+    auto iter_vip = salesdata.vip.begin();
+    //std::cout << ( salesdata.vip.end() - salesdata.vip.begin() ) << std::endl;
     in.open( this->filename, std::ios::binary | std::ios::in );
     if ( in.is_open() )
     {
@@ -383,16 +390,35 @@ SalesData DB::read_salesfile( SalesData& salesdata ){
         in.seekg( 0, std::ios::end );
         auto file_end = in.tellg();
         in.seekg( 0, std::ios::beg );
-        auto filestart = in.tellg();
-        while ( file_end.seekpos() != ( filestart.seekpos() + 1 ) )
+        auto file_start = in.tellg();
+        while(file_end.seekpos()!=(file_start.seekpos()))
         {
-            // customer
-            in >> name;
-            in >> id;
-            in >> pwd;
-            //root
-            in >> tmp;
-            if(tmp == 'c'){
+            tmp = in.get();
+            if ( tmp == '`' )
+            {
+                ++dist;
+                if(dist!=0){ ++iter_vip; }
+                // customer
+                in >> name;
+                in >> id;
+                in >> pwd;
+                //root
+                in >> root;
+                if ( root == 'c' )
+                {
+                    Customer c( name, id, pwd );
+                    salesdata.vip[dist] = c;
+                    //std::cout << ( salesdata.vip.end() - salesdata.vip.begin() ) << std::endl;
+                    //iter_vip = salesdata.vip.end() - 1;
+                }
+                else if ( root == 'm' )
+                {
+                    salesdata.clerk.push_back( Clerk( name, id, pwd ) );
+                }
+                else;
+            }
+            else
+            {
                 //book
                 in >> bookname;
                 in >> isbn;
@@ -404,23 +430,83 @@ SalesData DB::read_salesfile( SalesData& salesdata ){
                 //  date
                 in >> year;
                 in >> month;
+                Book book( bookname, author, isbn, price, num );
+                Date date( year, month );
+                iter_vip->newRecord( book, date );
             }
+            //  '\r' & '\n'
             tmp = in.get();
-            if ( tmp == '`' ) { in.get(); }
-            //clerkdata.clerk.push_back( Clerk( name, id, pwd ) );
-
-            filestart = in.tellg();
+            tmp = in.get();
+            file_start = in.tellg();
         }
         in.clear();
         in.close();
     }
     else
     {
-        std::cout << "clerk list fail to open!" << std::endl;
+        std::cout << "sales list fail to open!" << std::endl;
     }
     return salesdata;
 }
-SalesData DB::save_salesfile( const SalesData& salesdata ){ return salesdata; }
+SalesData DB::save_salesfile( const SalesData& salesdata ){ 
+
+    std::ofstream savefile;
+    savefile.open( this->filename, std::ios::out );
+
+    if ( savefile.is_open() )
+    {
+        for ( auto iter_sales = salesdata.vip.begin(); iter_sales != salesdata.vip.end(); ++iter_sales )
+        {
+            savefile << '`';
+            savefile << ( iter_sales->getName() );
+            savefile << ' ';
+            savefile << ( iter_sales->getID() );
+            savefile << ' ';
+            savefile << ( iter_sales->getPWD() );
+            savefile << ' ';
+            savefile << 'c';
+            savefile << std::endl;
+            auto tmp = iter_sales->getRecord();
+            for ( auto iter_loan = tmp.begin();
+                iter_loan != tmp.end(); ++iter_loan)
+            {
+                savefile << '=';
+                savefile << iter_loan->getBookName();
+                savefile << ' ';
+                savefile << iter_loan->getISBN();
+                savefile << ' ';
+                savefile << iter_loan->getAuthor();
+                savefile << ' ';
+                savefile << iter_loan->getPrice();
+                savefile << ' ';
+                savefile << iter_loan->getNum();
+                savefile << ' ';
+                savefile << iter_loan->getYear();
+                savefile << ' ';
+                savefile << iter_loan->getMonth();
+                savefile << std::endl;
+            }
+        }
+        for(auto iter_clerk = salesdata.clerk.begin(); iter_clerk != salesdata.clerk.end(); ++iter_clerk ){
+            savefile << '`';
+            savefile << ( iter_clerk->getName() );
+            savefile << ' ';
+            savefile << ( iter_clerk->getID() );
+            savefile << ' ';
+            savefile << ( iter_clerk->getPWD() );
+            savefile << ' ';
+            savefile << 'm';
+            savefile << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "salesdata's Messages do not Match!\n\n";
+    }
+    savefile.clear();
+    savefile.close();
+    return salesdata; 
+}
 
 std::string wchartostring(const char *cstr ){
 
@@ -446,9 +532,7 @@ std::string wchartostring(const char *cstr ){
 void saveAllData(  BookList& bl,  SalesData& sd ){
     
     book_db.save_bookfile( bl );
-    vip_db.save_customerfile( sd );
-    clerk_db.save_clerkfile( sd );
-    loan_db.save_loanfile( sd );
+    sales_db.save_salesfile( sd );
     bl.clear();
     sd.clear();
 }

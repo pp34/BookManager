@@ -30,7 +30,9 @@ Loan::Loan( const Loan& loan ) :
     Book( loan.getBookName(), loan.getAuthor(), loan.getISBN(), loan.getPrice(),loan.getNum() ),
     Date( loan.getYear(), loan.getMonth() ),
     who(loan.getWho())
-    { ++loannum;}
+{
+    ++loannum; //std::cout << "loan copy" << std::endl;
+}
 
 
 Loan& Loan::operator=( Loan& obj ){

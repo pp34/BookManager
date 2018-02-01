@@ -36,7 +36,7 @@ std::string page;
 
     void tips();
     void error();
-    void exit( BookList& bookdata, SalesData& salesdata ){ saveAllData( bookdata, salesdata ); }
+    void _exit( BookList& bookdata, SalesData& salesdata ){ saveAllData( bookdata, salesdata ); exit( 0 ); }
     void what_is_sta( BookList& bookdata, SalesData& salesdata );
     void get_sta( std::istream& in );
     void set_sta( std::string p, int sta ){ pp::page = p; pp::sta = sta; }
@@ -66,7 +66,7 @@ void pp::what_is_sta( BookList& bookdata, SalesData& salesdata ){
             {
                 case 1:pp::login_vips( salesdata ); break;
                 case 2:pp::login_clerk( salesdata ); break;
-                case 3:pp::exit( bookdata, salesdata ); break;
+                case 3:pp::_exit( bookdata, salesdata ); break;
                 default:pp::error(); break;
             }
         }
@@ -77,7 +77,7 @@ void pp::what_is_sta( BookList& bookdata, SalesData& salesdata ){
                 case 2:pp::find_isbn( bookdata ); break;
                 case 3:pp::printAllBook( bookdata ); pp::borrow(); break;
                 case 4:pp::hall(); break;
-                case 5:pp::exit( bookdata, salesdata ); break;
+                case 5:pp::_exit( bookdata, salesdata ); break;
                 default:pp::error(); break;
             }
         }
@@ -91,7 +91,7 @@ void pp::what_is_sta( BookList& bookdata, SalesData& salesdata ){
                        pp::manager( FALSE ); 
                        break;
                 case 5:pp::hall(); break;
-                case 6:pp::exit( bookdata, salesdata ); break;
+                case 6:pp::_exit( bookdata, salesdata ); break;
                 default:pp::error(); break;
             }
         }
@@ -104,7 +104,7 @@ void pp::what_is_sta( BookList& bookdata, SalesData& salesdata ){
                 case 2:pp::find_isbn( bookdata ); break;
                 case 3:pp::printAllBook( bookdata ); pp::borrow(); break;
                 case 4:pp::hall(); break;
-                case 5:pp::exit( bookdata, salesdata ); break;
+                case 5:pp::_exit( bookdata, salesdata ); break;
                 default:pp::error(); break;
             }
         }

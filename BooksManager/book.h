@@ -13,8 +13,8 @@ public:
     friend class Clerk;
 
     Book(){ ++total; }
-    Book( const std::string bookname, const std::string author, const std::string isbn, 
-          const double price, const int num );
+    Book( const std::string& bookname, const std::string& author, const std::string& isbn, 
+          const double& price, const int& num );
     Book( const Title& title, const double price, const int num );
     Book( const Book& book );
 
@@ -38,10 +38,12 @@ private:
 
 int Book::total = 0;
 
-Book::Book( const std::string bookname, const std::string author, const std::string isbn, 
-    const double price, const int num ) :
+Book::Book( const std::string& bookname, const std::string& author, const std::string& isbn, 
+    const double& price, const int& num ) :
     Title( bookname, author, isbn ), price( price ), num( num )
-    { ++total; }
+{
+    ++total; //std::cout << "book normal" << std::endl;
+}
 Book::Book( const Title& title, const double price, const int num ) :
     Title( title ), price( price ), num( num )
     { ++total; }
