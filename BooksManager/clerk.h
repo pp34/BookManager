@@ -17,20 +17,9 @@ public:
     Clerk( const std::string& name, const std::string& id, const std::string& pwd );
     Clerk( const Clerk& clerk );
     ~Clerk(){ --clerknum; }
-
-    void add_book(BookList& booklist, const Book& book){
-        booklist.book.push_back( book );
-    }
-
-    void delete_book( BookList& booklist, const Book& book ){
-        auto it_book = std::find( booklist.book.begin(), booklist.book.end(), book );
-        if ( it_book == booklist.book.end() )
-            std::cout << "This book U wanna delete not Found.\n\n";
-        else {
-            it_book= booklist.book.erase( it_book );
-            std::cout << "Delete Complete.\n\n";
-        }
-    }
+    
+    void setClerkNum( int n ){ Clerk::clerknum = n; }
+    int getClerkNum( int n ){ return Clerk::clerknum; }
 
 private:
     

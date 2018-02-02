@@ -5,6 +5,7 @@
 #include <string>
 #include <iomanip>
 #include "title.h"
+#include "test.h"
 
 class Book :public Title{
 public:
@@ -25,13 +26,12 @@ public:
 
     double getPrice() const { return price; }
     void setPrice( double p ){ price = p; }
-    int getTotal() const { return total; }
-    void setTotal( int t ){ total = t; }
+    int getTotal() const { return Book::total; }
+    void setTotal( int t ){ Book::total = t; }
     int getNum() const { return num; }
     void setNum( int t ){ num = t; }
 
 private:
-
     double price{ 0.0 };
     int num{ 0 };
 };
@@ -42,16 +42,23 @@ Book::Book( const std::string& bookname, const std::string& author, const std::s
     const double& price, const int& num ) :
     Title( bookname, author, isbn ), price( price ), num( num )
 {
-    ++total; //std::cout << "book normal" << std::endl;
+    ++total; //
+   // printCtorType("Book",ctor_type(0));
 }
 Book::Book( const Title& title, const double price, const int num ) :
     Title( title ), price( price ), num( num )
-    { ++total; }
+{ 
+    ++total; 
+   // printCtorType( "Book", ctor_type( 0 ) );
+}
 
 Book::Book( const Book& book) : 
     Title( book.getBookName(), book.getAuthor(), book.getISBN()), 
     price( book.getPrice() ), num( book.getNum() )
-    { ++total; }
+{ 
+    ++total; 
+   // printCtorType( "Book", ctor_type( 1 ) );
+}
 
 Book& Book::operator=( Book& obj ){
     if ( this != &obj )

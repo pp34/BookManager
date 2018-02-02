@@ -153,6 +153,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="person.h" />
     <ClInclude Include="print.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>
   <ItemGroup>

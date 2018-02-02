@@ -10,7 +10,6 @@
 #include "person.h"
 #include "loan.h"
 
-
 class Customer :public Person, public ID{
 public:
     static int vipnum;
@@ -23,7 +22,7 @@ public:
     Customer( const Person& person, const ID& account );
     Customer( const std::string& name, const std::string& id, const std::string& pwd );
     Customer( const Customer& customer );
-    Customer( const Customer&& customer );
+    Customer( Customer&& customer );
     ~Customer(){
         --vipnum;
         record.clear();
@@ -41,8 +40,28 @@ public:
         record.push_back( loan );
         recnum = record.size();
     }
+    void deleteRecord( Loan& loan ){
+
+        for ( auto iter = record.begin(); iter != record.end();  )
+        {
+            if(loan.getISBN() == iter->getISBN()){
+                //  实际上erase掉的是同一个地址，不是指针本身
+                /*auto iter_match = iter;*/
+                //  注意这里的返回，是一个迭代器，指向被删除的元素的下一个元素，这样iter就不是野指针
+                //  同时,重载Loan的==,可使用remove;
+                iter = record.erase( iter );
+            }
+            else{
+                ++iter; //  不erase才++. 这样就不会错.
+            }
+        }
+    }
+    void setRecord( std::vector<Loan> loan ){ record = loan; }
+    void deleteRecord(){ this->record.clear(); }
     void setRecNum( size_t num ){ this->recnum = num; }
     size_t getRecNum(){ return recnum; }
+    int getVipNum( ){ return Customer::vipnum; }
+    void setVipNum( int n ){ Customer::vipnum = n; }
 
 private:
     std::vector<Loan> record;
@@ -51,7 +70,7 @@ private:
 
 int Customer::vipnum = 0;
 
-Customer::Customer( const Person& person, const ID& account ) :
+Customer::Customer( const Person& person, const ID& account) :
     Person( person ), ID( account ) {
     ++vipnum;
     recnum = record.size();
@@ -67,30 +86,31 @@ Customer::Customer( const Customer& customer ) :
     Person( customer.getName() ),
     ID( customer.getID(), customer.getPWD() )   {
     ++vipnum;
-    setRecNum( record.size() );
-    auto vtmp = customer.getRecord();
-    record.swap( vtmp );
-    //std::cout << "Copy" << std::endl;
-    //this->record.assign( vtmp.begin(), vtmp.end() );
+    setRecord( customer.getRecord() );
+    setRecNum(record.size());
 }
 
-Customer::Customer( const Customer&& customer ) :
+Customer::Customer( Customer&& customer ) :
     Person( customer.getName() ),
-    ID( customer.getID(), customer.getPWD() )    {
+    ID( customer.getID(), customer.getPWD())    {
     ++vipnum;
-    setRecNum( record.size() );
+
+    setRecord( customer.getRecord() );
+    setRecNum( customer.getRecNum() );
+
+    customer.deleteRecord();
+    customer.setRecNum( 0 );
 }
 
 
-Customer Customer::operator=  ( Customer& obj )
+Customer Customer::operator= ( Customer& obj )
 {
     if ( this != &obj )
     {
         this->setName( obj.getName() );
-        this->setAccount( obj.getID(), obj.getPWD() );
+        this->setAccount( obj.getID() , obj.getPWD() );
+        setRecord( obj.getRecord() );
         setRecNum( obj.getRecNum() );
-        auto vtmp = obj.getRecord();
-        record.swap( vtmp );
     }
     return *this;
 }

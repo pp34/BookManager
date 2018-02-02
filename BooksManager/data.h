@@ -18,7 +18,7 @@ struct BookList{
 
 struct SalesData{
     std::vector<Customer> vip;
-    std::vector<Loan> loan;
+    //std::vector<Loan> loan;
     std::vector<Clerk> clerk;
     void clear();
 };
@@ -31,8 +31,6 @@ void BookList::clear(){
 void SalesData::clear(){
     if ( !vip.empty() )
         vip.clear();
-    if ( !loan.empty() )
-        loan.clear();
     if ( !clerk.empty() )
         clerk.clear();
 }
