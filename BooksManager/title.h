@@ -19,8 +19,7 @@ public:
     //Title* addBook(Book::title);
     //Title* removeBook( Book::title );
 
-    Title& Title::operator=( Title& obj );
-    Title& Title::operator=( Title&& obj );
+    Title& operator=( Title& obj );
 
     void setAuthor( std::string author ){
         this->author = author;
@@ -78,20 +77,10 @@ Title& Title::operator=( Title& obj ){
         author = obj.author;
         ISBN =  obj.ISBN ;
     }
-   // std::cout << "Title Copy Operator.\n";
     return *this;
 }
 
-Title& Title::operator=( Title&& obj ){
-    if ( this != &obj )
-    {
-        bookName = std::move( obj.bookName );
-        author = std::move( obj.author );
-        ISBN = std::move( obj.ISBN );
-    }
-   // std::cout << "Title Move Operator.\n";
-    return *this;
-}
+
 
 #endif
 

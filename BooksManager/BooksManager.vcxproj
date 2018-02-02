@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="book.h" />
     <ClInclude Include="clerk.h" />
+    <ClInclude Include="crlf.h" />
     <ClInclude Include="customer.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="date.h" />

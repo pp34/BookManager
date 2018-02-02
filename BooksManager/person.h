@@ -14,8 +14,7 @@ public:
     
     ~Person(){}
 
-    Person& Person::operator= ( Person& obj );
-    Person& Person::operator= ( Person&& obj );
+    Person& operator= ( Person& obj );
 
     void setName( const std::string &name ){ this->name = name; }
     inline std::string getName() const { return this->name; }
@@ -38,17 +37,7 @@ Person::Person( Person&& person ) :name( std::move( person.name ) ){
 
 Person& Person::operator= ( Person& obj )
 {
-    if ( this != &obj )
-    {
-        name = obj.name;
-    }
-    return *this;
-}
-
-Person& Person::operator= ( Person&& obj )
-{
-    if ( this != &obj )
-    {
+    if(this!=&obj){
         name = obj.name;
     }
     return *this;

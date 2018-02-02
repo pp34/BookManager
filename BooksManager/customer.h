@@ -15,7 +15,7 @@ public:
     static int vipnum;
     //friend class clerk;
     Customer() {
-        ++vipnum;
+        //++vipnum;
         recnum = record.size();
     }
 
@@ -24,11 +24,12 @@ public:
     Customer( const Customer& customer );
     Customer( Customer&& customer );
     ~Customer(){
-        --vipnum;
+        //--vipnum;
         record.clear();
     }
 
-    Customer Customer::operator= ( Customer& obj );
+    Customer operator= ( const Customer& obj );
+    bool operator== ( Customer& obj );
 
     std::vector<Loan> getRecord() const { return this->record; }
     void newRecord( const Loan& loan ){
@@ -59,8 +60,8 @@ public:
     void setRecord( std::vector<Loan> loan ){ record = loan; }
     void deleteRecord(){ this->record.clear(); }
     void setRecNum( size_t num ){ this->recnum = num; }
-    size_t getRecNum(){ return recnum; }
-    int getVipNum( ){ return Customer::vipnum; }
+    size_t getRecNum()const{ return recnum; }
+    int getVipNum( )const{ return Customer::vipnum; }
     void setVipNum( int n ){ Customer::vipnum = n; }
 
 private:
@@ -72,20 +73,20 @@ int Customer::vipnum = 0;
 
 Customer::Customer( const Person& person, const ID& account) :
     Person( person ), ID( account ) {
-    ++vipnum;
+    //++vipnum;
     recnum = record.size();
 }
 
 Customer::Customer( const std::string& name, const std::string& id, const std::string& pwd ) :
     Person( name ), ID( id, pwd )   {
-    ++vipnum;
+    //++vipnum;
     setRecNum( record.size() );
 }
 
 Customer::Customer( const Customer& customer ) :
     Person( customer.getName() ),
     ID( customer.getID(), customer.getPWD() )   {
-    ++vipnum;
+    //++vipnum;
     setRecord( customer.getRecord() );
     setRecNum(record.size());
 }
@@ -93,7 +94,7 @@ Customer::Customer( const Customer& customer ) :
 Customer::Customer( Customer&& customer ) :
     Person( customer.getName() ),
     ID( customer.getID(), customer.getPWD())    {
-    ++vipnum;
+    //++vipnum;
 
     setRecord( customer.getRecord() );
     setRecNum( customer.getRecNum() );
@@ -103,16 +104,34 @@ Customer::Customer( Customer&& customer ) :
 }
 
 
-Customer Customer::operator= ( Customer& obj )
+Customer Customer::operator= ( const Customer& obj )
 {
-    if ( this != &obj )
-    {
+    if(this !=&obj){
         this->setName( obj.getName() );
-        this->setAccount( obj.getID() , obj.getPWD() );
+        this->setAccount( obj.getID(), obj.getPWD() );
         setRecord( obj.getRecord() );
         setRecNum( obj.getRecNum() );
     }
     return *this;
+}
+
+bool Customer::operator== ( Customer& obj ){
+
+    if ( this != &obj )
+    {
+        if( (this->getName() == obj.getName()) && 
+            (this->getID() == obj.getID()) && 
+            (this->getPWD() == obj.getPWD()) )
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return true;
+    }
 }
 
 

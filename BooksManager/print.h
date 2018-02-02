@@ -22,10 +22,10 @@ std::string page;
 
     void hall();
     void borrow();
-    void reserv( Customer& cus );
+    SalesData& reserv( Customer& cus , BookList& bookdata, SalesData& salesdata );
     void login_vips( Customer& cus, SalesData& salesdata );
     void login_clerk( Clerk& cle, SalesData& salesdata );
-    
+    SalesData& signup( SalesData& salesdata );
     void manager_no_root( Customer& cus );
     void manager_root( Clerk& cle );
 
@@ -57,8 +57,7 @@ std::string page;
     void printBook( const Book& book );
     void printTitle( const Title& title );
     void printAllBook( BookList& bookdata );
-
-
+    //void printPersonNum();
 };
 
 
@@ -76,7 +75,8 @@ void pp::what_is_sta( BookList& bookdata, SalesData& salesdata ){
             {
                 case 1:pp::login_vips( cus,salesdata ); break;
                 case 2:pp::login_clerk( cle,salesdata ); break;
-                case 3:pp::_exit( bookdata, salesdata ); break;
+                case 3:salesdata = pp::signup( salesdata ); pp::hall(); break;
+                case 4:pp::_exit( bookdata, salesdata ); break;
                 default:pp::error(); break;
             }
         }
@@ -98,7 +98,7 @@ void pp::what_is_sta( BookList& bookdata, SalesData& salesdata ){
             switch ( pp::sta )
             {
                 case 1:pp::borrow(); break;
-                case 2:pp::reserv(cus); break;
+                case 2:salesdata = pp::reserv( cus, bookdata, salesdata ); break;
                 case 3:pp::printLoan( cus ); pp::manager_no_root( cus ); break;
                 case 4:pp::printAllBook( bookdata ); 
                        pp::manager_no_root( cus ); 
@@ -229,7 +229,8 @@ void pp::hall(){
 
     std::cout << "1、读者维护入口" << std::endl;
     std::cout << "2、管理员维护入口" << std::endl;
-    std::cout << "3、离开" << std::endl;
+    std::cout << "3、读者注册入口" << std::endl;
+    std::cout << "4、离开" << std::endl;
     pp::tips();
     pp::set_sta( "hall", 0 );
 }
@@ -310,27 +311,90 @@ int pp::modify_num(){
     return num;
 }
 
-void pp::reserv( Customer& cus ){
+SalesData& pp::reserv( Customer& cus, BookList& bookdata, SalesData& salesdata){
 
     pp::printLoan( cus );
     std::cout << "\n输入所归还的书籍ISBN:\n";
     pp::tips();
-
+    int num;
+    int numtmp;
     auto tmp = cus.getRecord();
+    auto iter_book = bookdata.book.begin();
+    decltype( iter_book ) iter_bm = bookdata.book.end(); ;
     std::string isbn;
-
     std::cin >> isbn;
     
-    for (auto iter=tmp.begin(); iter!=tmp.end(); ++iter){
-        if(isbn == iter->getISBN()){
+    for ( auto iter = tmp.begin(); iter != tmp.end(); ++iter )
+    {
+        if ( isbn == iter->getISBN() )
+        {
             auto iter_match = iter;
             std::cout << "书籍明细:\n";
-            pp::printALoan(*iter_match);
-            std::cout << "已归还\n";
-            cus.deleteRecord( *iter_match );
+            pp::printALoan( *iter_match );
+            for ( iter_book = bookdata.book.begin();
+                iter_book != bookdata.book.end();
+                ++iter_book
+                )
+            {
+                if ( isbn == iter_book->getISBN() )
+                {
+                    iter_bm = iter_book;
+                    if ( iter_bm->getNum() == 0 )
+                    {
+                        std::cout << "这书在店里已经被借光，请尽快归还\n\n";
+                    }
+                }
+                else;
+            }
+            if ( iter_bm == bookdata.book.end() )
+            {
+                std::cout << "书库查无此书\n";
+            }
+            else
+            {
+                numtmp = iter_match->getNum();
+                std::cout << "归还数量:\t";
+                std::cin >> num;
+                if ( num < numtmp )
+                {
+                    cus.deleteRecord( *iter );
+                    iter_match->setNum( numtmp - num );
+                    cus.newRecord( *iter_match );
+                    std::cout << "已归还\t";
+                    std::cout << num << "本\n";
+                    Book::total += num;
+                    iter_bm->setNum( num + ( iter_bm->getNum() ) );
+                }
+                else if ( num == numtmp )
+                {
+                    std::cout << "已归还\n";
+                    cus.deleteRecord( *iter_match );
+                    Book::total += num;
+                    iter_bm->setNum( num + ( iter_bm->getNum() ) );
+                }
+                else
+                {
+                    std::cout << "数量输入错误.\n\n";
+                    pp::error();
+                }
+                pp::printLoan( cus );
+                for ( auto iter_vips = salesdata.vip.begin();
+                           iter_vips != salesdata.vip.end();
+                    )
+                {
+                    if(*iter_vips == cus){
+                        /*auto iter_tmp = iter_vips;*/ //这里只是一个引用
+                        iter_vips = salesdata.vip.erase( iter_vips );
+                        salesdata.vip.insert( iter_vips, cus );
+                        break;
+                    }
+                    else { ++iter_vips; }
+                }
+            }
         }
     }
     pp::manager_no_root( cus );
+    return salesdata;
 }
 
 void pp::find_bookName( Customer& cus, BookList& bookdata ){
@@ -499,19 +563,76 @@ void pp::find_isbn( Customer& cus, BookList& bookdata ){
 void pp::printLoan( Customer& cus ){
     std::cout << "Vip: " << cus.getName() << " 's Loan: \n\n";
     auto tmp = cus.getRecord();
-    for ( auto iter = tmp.begin(); iter != tmp.end(); ++iter ) {
-        std::cout << std::left << std::setw( 20 )
-            << iter->getBookName() << ' ';
-        std::cout << std::left << std::setw( 20 )
-            << iter->getISBN() << ' ';
-        std::cout << std::left << std::setw( 20 )
-            << iter->getAuthor() << ' ';
-        std::cout << std::left << std::setw( 20 )
-            << iter->getPrice() << ' ';
-        std::cout << std::left << std::setw( 20 )
-            << iter->getNum() << '\n';
+    auto lenth = tmp.end() - tmp.begin();
+    if ( lenth == 0 ) { std::cout << std::right << std::setw( 20 ) << "无.\n"; }
+    else
+    {
+        for ( auto iter = tmp.begin(); iter != tmp.end(); ++iter )
+        {
+            std::cout << std::left << std::setw( 20 )
+                << iter->getBookName() << ' ';
+            std::cout << std::left << std::setw( 20 )
+                << iter->getISBN() << ' ';
+            std::cout << std::left << std::setw( 20 )
+                << iter->getAuthor() << ' ';
+            std::cout << std::left << std::setw( 20 )
+                << iter->getPrice() << ' ';
+            std::cout << std::left << std::setw( 20 )
+                << iter->getNum() << '\n';
+        }
     }
-    //pp::manager_no_root( cus );
+}
+
+SalesData& pp::signup( SalesData& salesdata ){
+
+    __int64 dist{ -1 };
+    std::string tmp1, tmp2, tmp3;
+
+    std::cout << "\n请输入姓名: _____\b\b\b\b\b";
+    std::cin >> tmp1;
+
+    std::cout << "\n请输入账号: ______\b\b\b\b\b\b";
+    std::cin >> tmp2;
+
+    for ( auto iter_vips = salesdata.vip.begin();
+        iter_vips != salesdata.vip.end();
+        ++iter_vips
+        )
+    {
+        if ( tmp2 == iter_vips->getID() )
+        {
+            std::cout << "\n重名乃兵家常事，大侠请重头来过\n";
+            salesdata = pp::signup( salesdata );
+        }
+        else;
+    }
+    std::cout << "不重名,请继续操作\n";
+    std::cout << "\n请输入密码: ______\b\b\b\b\b\b";
+    std::cin >> tmp3;
+
+    salesdata.vip.push_back( Customer( tmp1, tmp2, tmp3 ) );
+    auto iter = salesdata.vip.end() -1 ;
+    dist = std::distance( salesdata.vip.begin(), iter );
+    std::cout << "Here is a new VIP in: NO. \t" << dist+1 << std::endl;
+    std::cout << "Name is :\n";
+    std::cout
+        << std::setw( 20 )
+        << std::right
+        << ( iter->getName() )
+        << '\n';
+    std::cout << "ID is :\n";
+    std::cout
+        << std::setw( 20 )
+        << std::right
+        << ( iter->getID() )
+        << '\n';
+    std::cout << "PassWord is :\n";
+    std::cout
+        << std::setw( 20 )
+        << std::right
+        << ( iter->getPWD() )
+        << '\n';
+    return salesdata;
 }
 
 void pp::login_vips( Customer& cus, SalesData& salesdata ){
@@ -539,6 +660,7 @@ void pp::login_vips( Customer& cus, SalesData& salesdata ){
                 << '\t';
             if(tmp2 == ( iter_match->getPWD() )){
                 std::cout << "Welcome!\n\n";
+                printPersonNum();
                 cus.setName( iter_match->getName() );
                 cus.setAccount( tmp1, tmp2 );
                 auto tmp = iter_match->getRecord();
@@ -604,6 +726,7 @@ void pp::login_clerk( Clerk& cle, SalesData& salesdata ){
             if ( tmp2 == ( iter_match->getPWD() ) )
             {
                 std::cout << "Welcome!\n\n";
+                printPersonNum();
                 pp::manager_root( cle );
             }
             else
@@ -634,9 +757,11 @@ void pp::login_clerk( Clerk& cle, SalesData& salesdata ){
 }
 
 
+
 void pp::printCustomer( const Customer& cus ){
     std::cout << std::left << std::setw( 20 ) << "Customer's ID: " << std::right << std::setw( 20 ) << cus.getID() << std::endl \
         << std::left << std::setw( 20 ) << "Customer's Name: " << std::right << std::setw( 20 ) << cus.getName() << std::endl;
+    printPersonNum();
 }
 
 void pp::printBook( const Book& book ){
@@ -690,6 +815,7 @@ void pp::printAllBook( BookList& bookdata ){
             << ( iter_book->getNum() )
             << '\n';
     }
+    printBookTotal();
 }
 
 

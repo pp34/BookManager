@@ -12,7 +12,7 @@ class Clerk;
 
 struct BookList{
     std::vector<Book> book;
-    int total;
+    int total{ 0 };
     void clear();
 };
 

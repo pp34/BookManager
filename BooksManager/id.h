@@ -32,12 +32,10 @@ ID::ID( const ID& acount ) :userid( acount.userid ), userpwd( acount.userpwd ){ 
 ID::ID( const std::string& userid, const std::string& userpwd ) : userid( userid ), userpwd( userpwd ){  }
 
 ID& ID::operator=( ID& acount ){
-    if ( this != &acount )
-    {
-        userid = acount.userid;
-        userpwd = acount.userpwd;
-    }
-    std::cout << "ID Copy Operator.\n";
+
+    userid = acount.userid;
+    userpwd = acount.userpwd;
+
     return *this;
 }
 

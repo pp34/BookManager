@@ -47,12 +47,10 @@ Date::Date( const unsigned int year, const unsigned int month ) :year( year ), m
 Date::Date( const Date& date ) :year( date.year ), month( date.month ){  }
 
 Date& Date::operator=( Date& obj ){
-    if ( this != &obj )
-    {
-        year = obj.year;
-        month = obj.month;
-    }
-    //std::cout << "Date Copy Operator.\n";
+
+    year = obj.year;
+    month = obj.month;
+
     return *this;
 }
 

@@ -15,7 +15,7 @@ public:
     Loan( const Loan& loan );
     ~Loan(){ --loannum; }
 
-    Loan& Loan::operator=( Loan& obj );
+    Loan& operator=( Loan& obj );
     int getLoanNum(){ return loannum; }
     std::string getWho() const { return who; }
     void setWho( std::string w ){ who = w; }
@@ -36,15 +36,14 @@ Loan::Loan( const Loan& loan ) :
 
 
 Loan& Loan::operator=( Loan& obj ){
-    if ( this != &obj )
-    {
-        this->setBookName(obj.getBookName()) ;
-        this->setAuthor( obj.getAuthor() );
-        this->setISBN( obj.getISBN() );
-        this->setPrice( obj.getPrice() );
-        this->setDate( obj.getYear(), obj.getMonth() );
-        this->setWho( obj.getWho() );
-    }
+
+    this->setBookName( obj.getBookName() );
+    this->setAuthor( obj.getAuthor() );
+    this->setISBN( obj.getISBN() );
+    this->setPrice( obj.getPrice() );
+    this->setDate( obj.getYear(), obj.getMonth() );
+    this->setWho( obj.getWho() );
+
     return *this;
 }
 

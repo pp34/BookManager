@@ -9,12 +9,16 @@
 #include <windows.h>
 #include "data.h"
 #include "clerk.h"
+#include "crlf.h"
+//#include "print.h"
 
 const std::string __BOOKLIST_FILENAME__ = { ".book" };
 const std::string __SALESLIST_FILENAME__ = { ".salesdata" };
 
 std::string wchartostring( const char *cstr );
 void saveAllData( BookList& bl, SalesData& sd );
+void printPersonNum();
+void printBookTotal();
 
 class DB{
 public:
@@ -90,6 +94,7 @@ BookList DB::read_bookfile( BookList& bookdata){
         if(in.peek()==EOF){
             std::cout << "Empty File.\n" << std::endl;
         }
+        SYSTYPE = which_type_is( in );
         //  用了5句，来代替一句 !in.eof()
         //  用指针位置来获取是否是最后一个字符，自行结束
         in.seekg( 0, std::ios::end );
@@ -110,13 +115,17 @@ BookList DB::read_bookfile( BookList& bookdata){
     
             bookdata.book.push_back( Book( name, author, isbn, price, num ) );
 
-            in.get();   // for CR
-            in.get();   // for LF
+            getCRLF( in );
             file_start = in.tellg();
         }
-        auto it_total = bookdata.book.begin();
-        for (; it_total !=bookdata.book.end();++it_total){
+        
+        for ( auto it_total = bookdata.book.begin(); 
+                   it_total !=bookdata.book.end();
+                 ++it_total)
+        {
             bookdata.total += it_total->getNum();
+            Book::total = bookdata.total;
+           // printBookTotal();
         }
         in.clear();
         in.close();
@@ -145,6 +154,7 @@ SalesData DB::read_salesfile( SalesData& salesdata ){
     unsigned int year;
     unsigned int month;
     auto iter_vip = salesdata.vip.begin();
+    auto iter_clerk = salesdata.clerk.begin();
     in.open( this->filename, std::ios::binary | std::ios::in );
     if ( in.is_open() )
     {
@@ -152,6 +162,7 @@ SalesData DB::read_salesfile( SalesData& salesdata ){
         {
             std::cout << "Empty File.\n" << std::endl;
         }
+        SYSTYPE = which_type_is( in );
         //  用了5句，来代替一句 !in.eof()
         //  用指针位置来获取是否是最后一个字符，自行结束
         in.seekg( 0, std::ios::end );
@@ -171,10 +182,13 @@ SalesData DB::read_salesfile( SalesData& salesdata ){
                 if ( root == 'c' ){
                     salesdata.vip.push_back(Customer(name, id, pwd));
 					iter_vip = salesdata.vip.end() - 1;
+                    iter_vip->setVipNum( ++Customer::vipnum );
                 }
                 else if ( root == 'm' ){
 
                     salesdata.clerk.push_back( Clerk( name, id, pwd ) );
+                    iter_clerk = salesdata.clerk.end() - 1;
+                    iter_clerk->setClerkNum( ++Clerk::clerknum );
                 }
                 else;
             }
@@ -194,13 +208,12 @@ SalesData DB::read_salesfile( SalesData& salesdata ){
                 iter_vip->newRecord( Book( bookname, author, isbn, price, num ), Date( year, month ) );
             }
             else;
-            //  'CRLF' mode
-            tmp = in.get();
-            tmp = in.get();
+            getCRLF( in );
             file_start = in.tellg();
         }
         in.clear();
         in.close();
+        //printPersonNum();
     }
     else
     {
@@ -304,6 +317,17 @@ void saveAllData(  BookList& bl,  SalesData& sd ){
     sd.clear();
 }
 
+void printPersonNum(){
+    std::cout << "===================" << std::endl;
+    std::cout << "管理员数量:\t" << Clerk::clerknum << std::endl;
+    std::cout << "读者数量:\t" << Customer::vipnum << std::endl;
+    std::cout << "===================" << std::endl;
+}
+void printBookTotal(){
+    std::cout << "===================" << std::endl;
+    std::cout << "书本总数量:\t" << Book::total << std::endl;
+    std::cout << "===================" << std::endl;
+}
 #endif
 
 

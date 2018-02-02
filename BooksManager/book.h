@@ -13,13 +13,13 @@ public:
 
     friend class Clerk;
 
-    Book(){ ++total; }
+    Book(){  }
     Book( const std::string& bookname, const std::string& author, const std::string& isbn, 
           const double& price, const int& num );
     Book( const Title& title, const double price, const int num );
     Book( const Book& book );
 
-    ~Book(){ --total; }
+    ~Book(){  }
 
     Book& Book::operator=( Book& obj );
     bool Book::operator==( const Book& obj );
@@ -42,13 +42,13 @@ Book::Book( const std::string& bookname, const std::string& author, const std::s
     const double& price, const int& num ) :
     Title( bookname, author, isbn ), price( price ), num( num )
 {
-    ++total; //
+   
    // printCtorType("Book",ctor_type(0));
 }
 Book::Book( const Title& title, const double price, const int num ) :
     Title( title ), price( price ), num( num )
 { 
-    ++total; 
+    
    // printCtorType( "Book", ctor_type( 0 ) );
 }
 
@@ -56,19 +56,18 @@ Book::Book( const Book& book) :
     Title( book.getBookName(), book.getAuthor(), book.getISBN()), 
     price( book.getPrice() ), num( book.getNum() )
 { 
-    ++total; 
+    
    // printCtorType( "Book", ctor_type( 1 ) );
 }
 
 Book& Book::operator=( Book& obj ){
-    if ( this != &obj )
-    {
-        this->setBookName( obj.getBookName() );
-        this->setAuthor( obj.getAuthor() );
-        this->setISBN( obj.getISBN() );
-        this->setPrice(obj.getPrice());
-        this->setNum( obj.getNum() );
-    }
+
+    this->setBookName( obj.getBookName() );
+    this->setAuthor( obj.getAuthor() );
+    this->setISBN( obj.getISBN() );
+    this->setPrice(obj.getPrice());
+    this->setNum( obj.getNum() );
+
     return *this;
 }
 

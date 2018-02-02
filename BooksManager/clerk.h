@@ -11,15 +11,15 @@ class Clerk:public ID,public Person{
 public:
     static int clerknum;
 
-    Clerk() { ++clerknum; };
+    Clerk() {  };
 
     Clerk( const Person& person, const ID& account );
     Clerk( const std::string& name, const std::string& id, const std::string& pwd );
     Clerk( const Clerk& clerk );
-    ~Clerk(){ --clerknum; }
+    ~Clerk(){ }
     
     void setClerkNum( int n ){ Clerk::clerknum = n; }
-    int getClerkNum( int n ){ return Clerk::clerknum; }
+    int getClerkNum( ){ return Clerk::clerknum; }
 
 private:
     
@@ -29,16 +29,16 @@ int Clerk::clerknum = 0;
 Clerk::Clerk( const std::string& name, const std::string& id, const std::string& pwd ):
     Person( name ),ID( id, pwd )
 {
-    ++clerknum;
+    //++clerknum;
 }
 
 Clerk::Clerk( const Person& person, const ID& account ):
     Clerk(person.getName(),account.getID(),account.getPWD())
-    { ++clerknum; }
+    {  }
 
 Clerk::Clerk( const Clerk& clerk ):
     Clerk( clerk.getName(), clerk.getID(), clerk.getPWD() )
-    { ++clerknum; }
+    {  }
 
 
 
